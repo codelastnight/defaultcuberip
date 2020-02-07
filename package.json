@@ -37,6 +37,6 @@
 	},
 	"dependencies": {
 		"babylonjs": "^4.0.3",
-		"normalize-scss": "^7.0.1"
+		"normalize.css": "^5.0.0"
 	}
 }

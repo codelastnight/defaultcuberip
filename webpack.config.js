@@ -26,19 +26,24 @@ module.exports = {
 				]
 			},
 			{
-				test: /\.s[ac]ss$/i,
+				test: /\.s[ac]ss$/,
+				exclude: [/node_modules/],
 				use: [
 					MiniCssExtractPlugin.loader,
 					// Translates CSS into CommonJS
 					'css-loader',
 					// Compiles Sass to CSS
-					{
-					loader: 'sass-loader',
-					options: 
-						{
-						implementation: require('sass'),
-						}
-					}
+					'sass-loader',
+
+
+				]
+			},
+			{
+				test: /\.css$/,
+				use: [
+					MiniCssExtractPlugin.loader,
+					// Translates CSS into CommonJS
+					'css-loader',
 
 				]
 			}
@@ -57,6 +62,7 @@ module.exports = {
 			filename: 'index.html'
 		}),
 		//new BundleAnalyzerPlugin(),
-		new MiniCssExtractPlugin()	
+		new MiniCssExtractPlugin({filename: '[name].css',
+    })	
 	]
 }

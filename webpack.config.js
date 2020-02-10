@@ -50,7 +50,18 @@ module.exports = {
 					'css-loader',
 
 				]
-			},
+			},{
+				test: /\.(png|svg|jpg|gif)$/,
+				use: [
+					{
+						loader: 'file-loader',
+						options: {
+						  outputPath: 'img/',
+						  esModule: false,
+						}
+					  }
+				],
+		    },
 			{
 				test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
 				use: [

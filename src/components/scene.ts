@@ -1,5 +1,4 @@
 import * as BABYLON from "babylonjs";
-
 interface BabylonSceneInit {
 	camera: BABYLON.ArcRotateCamera
 	engine: BABYLON.Engine

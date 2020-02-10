@@ -1,38 +1,20 @@
 import * as BABYLON from "babylonjs";
 import {initScene} from './components/scene'
+import {sleep} from './components/helper'
+import {createCube} from "./components/cube";
+
 import 'normalize.css'; 
 import './style.scss';
 
-/**
- * creates da cube
- * @param scene the scene 
- * @param camera the camera ( for calculating outline width)
- */
-const createCube = function(scene:BABYLON.Scene, camera: BABYLON.ArcRotateCamera) {
-    const mesh = BABYLON.MeshBuilder.CreateBox("defaultCube", {width: 1, height: 1, depth: 1, }, scene);
-    mesh.position = BABYLON.Vector3.Zero();
-    
-    mesh.outlineColor = BABYLON.Color3.FromHexString("#F19929");
-    mesh.outlineWidth = camera.radius *0.0015;
-    mesh.renderOutline = false;
-    mesh.isPickable = true;
-    return mesh
-}
-
-/**
- * run when user SUCCsessfully deletes  cube
- * @param mesh the mesh to delete
- */
-const deleteHandler = function(mesh: BABYLON.Mesh) {
-    mesh.dispose();
-}
+const winModal = document.getElementById('w') as HTMLElement
+const restartBtn = document.getElementById('restart') as HTMLElement
 
 /**
  * check for delte and backspace 
  * @param ev keyboard event
  * @param mesh the mesh to delete
  */
-const KeyCheck = function(ev: KeyboardEvent, mesh: BABYLON.Mesh)
+export const KeyCheck = function(ev: KeyboardEvent, mesh: BABYLON.Mesh)
 {
    switch(ev.keyCode)
    {
@@ -46,49 +28,91 @@ const KeyCheck = function(ev: KeyboardEvent, mesh: BABYLON.Mesh)
    }
 }
 
+
 /**
- * the main code thingy
+ * 
+ * @param evt pointer event
+ * @param pick info from babylon
+ * @param cube mesh
  */
+export const onClickCheck = function(evt: BABYLON.PointerInfo, cube: BABYLON.Mesh) {
+    // if the click hits the ground object, we change the impact position
+       if (evt.pickInfo != null && evt.pickInfo.hit ) {
+           cube.renderOutline = true;
+           isCubeSelected = true
+       } 
+       // open up context menu on right click
+       else if(evt.event.button == 2) {
+           
+       }
+       else {
+           cube.renderOutline = false;
+           isCubeSelected = false
+       }
+   }
 
-//load scene
-const {scene, camera, engine} = initScene();
 
-/// is cube selected?
-let isCubeSelected = false
+/**
+ * run when user SUCCsessfully deletes  cube
+ * and den dispose
+ * @param mesh the mesh to delete
+ */
+const deleteHandler = async function(cube: BABYLON.Mesh) {
+    
+    cube.dispose();
+    engine.stopRenderLoop(() => onRender(cube,camera,scene))
+    document.removeEventListener('keydown', event => KeyCheck(event, cube))
+    scene.onPointerObservable.removeCallback(function(evt) { onClickCheck(evt,cube)},BABYLON.PointerEventTypes.POINTERDOWN)
+    await sleep(400)
+    winModal.classList.remove('disabled')
+}
 
-// load cube
-const cube = createCube(scene, camera)
-
-// render that shit
-engine.runRenderLoop(() => {
-
+const onRender = function(cube: BABYLON.Mesh, camera: BABYLON.ArcRotateCamera,scene: BABYLON.Scene) {
     cube.outlineWidth = camera.radius *0.0015;
     scene.render();
-})
+}
+/**
+ * init when loaded
+ */
+const start = function() {
+//load scene
+
+    /// is cube selected?
+    isCubeSelected = false;
+    // load cube
+    const cube = createCube(scene, camera) 
+    winModal.classList.add('disabled')
+
+     /**
+     * add listener for keypress
+     */
+    document.addEventListener('keydown', event => KeyCheck(event, cube))
+    /**
+     * listener if pointer clicks on cube
+     */
+    scene.onPointerObservable.add (function(evt) { onClickCheck(evt,cube)},BABYLON.PointerEventTypes.POINTERDOWN)
+
+    // render that shit
+    engine.runRenderLoop(() => onRender(cube,camera,scene))
+    
+
+}
 
 /**
- * add listener for keypress
+ * start the engine
+ * 
  */
-document.addEventListener('keydown', event => KeyCheck(event, cube))
+
+// cube selected state
+let isCubeSelected = false
+
 
 /**
- * listener if pointer clicks on cube
+ * init the scene
  */
-scene.onPointerDown = function (evt, pickResult) {
-    // if the click hits the ground object, we change the impact position
-    if (pickResult.hit ) {
-        cube.renderOutline = true;
-        isCubeSelected = true
-    } 
-    // open up context menu on right click
-    else if(evt.button == 2) {
-        
-    }
-    else {
-        cube.renderOutline = false;
-        isCubeSelected = false
-    }
-};
+const {scene, camera, engine} = initScene();
+
+start();
 
 
 /**
@@ -97,3 +121,5 @@ scene.onPointerDown = function (evt, pickResult) {
 window.addEventListener("resize", function () { 
     engine.resize();
 });
+
+restartBtn.addEventListener("click",()=> start())

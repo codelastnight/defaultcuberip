@@ -45,3 +45,10 @@ svg {
     display: flex;
     align-items: center;
 }
+.no-scroll {
+    overflow: -moz-scrollbars-none;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      width: 0 !important
+    }
+}

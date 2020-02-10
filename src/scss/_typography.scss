@@ -1,0 +1,23 @@
+@use 'variables' as v;
+
+@font-face {
+    font-family: 'bfont';
+    src: url('./fonts/bfont-webfont.woff2') format('woff2'),
+         url('./fonts/bfont-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html {
+    font-family: 'bfont', sans-serif;
+    font-size: 12px;
+    color: v.$white;
+}
+
+a, a:link, *|*:link {
+    text-decoration: none;
+}
+
+p {
+    text-shadow: 0px 1px 1px v.$black;
+}

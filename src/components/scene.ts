@@ -46,7 +46,13 @@ export const initScene = function (): BabylonSceneInit  {
 
     camera.attachControl(view);
     
-   
+   // light
+    const light = new BABYLON.HemisphericLight(
+        "light",
+        new BABYLON.Vector3(-2, 9, -5),
+        scene)
+    light.intensity = 0.6;
+
      // da grid thingy
     const createGrid = function(type: string,pointArr: Array<BABYLON.Vector3>, color: BABYLON.Color3) {
         const line = BABYLON.MeshBuilder.CreateLines("line",{points: pointArr},scene)

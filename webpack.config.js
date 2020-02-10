@@ -11,12 +11,14 @@ module.exports = {
 	},
 	module: {
 		rules: [
+			// compile ts int js
 			{
 				// Include ts, tsx, js, and jsx files.
 				test: /\.(ts|js)?$/,
 				exclude: /node_modules/,
 				loader: 'ts-loader'
 			},
+			//load html
 			{
 				test: /\.html$/,
 				use: [
@@ -25,6 +27,7 @@ module.exports = {
 					}
 				]
 			},
+			// compile sass
 			{
 				test: /\.s[ac]ss$/,
 				exclude: [/node_modules/],
@@ -38,6 +41,7 @@ module.exports = {
 
 				]
 			},
+			//compile css (vendor)
 			{
 				test: /\.css$/,
 				use: [
@@ -45,6 +49,18 @@ module.exports = {
 					// Translates CSS into CommonJS
 					'css-loader',
 
+				]
+			},
+			{
+				test: /\.(woff(2)?|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
+				use: [
+				  {
+					loader: 'file-loader',
+					options: {
+					  name: '[name].[ext]',
+					  outputPath: 'fonts/'
+					}
+				  }
 				]
 			}
 		]

@@ -16,7 +16,7 @@ export const initScene = function (): BabylonSceneInit  {
 
     //optimize resolution to stay on 60fps
     // dunno if this actually works. i feel like it doesnt.
-    engine.setHardwareScalingLevel(0.5)
+    engine.setHardwareScalingLevel(0.75)
     const options = new BABYLON.SceneOptimizerOptions();
     options.addOptimization(new BABYLON.HardwareScalingOptimization(0, 1,0.25));
 

@@ -69,7 +69,7 @@ start(cube);
 
 
 // restart game
-getElement('restart').addEventListener("click",() => start(cube))
+getElement('restart').addEventListener("mousedown",() => start(cube))
 
 /**
  * add listener for keypress
@@ -85,5 +85,5 @@ engine.runRenderLoop(() => onRender(cube,camera,scene))
 
 // add event handlers to all delete buttons
 document.querySelectorAll("[delete]").forEach((value) => {
-    value.addEventListener("click", () => deleteHandler(cube))
+    value.addEventListener("mousedown", () => deleteHandler(cube))
 })

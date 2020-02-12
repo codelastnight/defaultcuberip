@@ -5,9 +5,9 @@ const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 // Extract CSS
-module.exports = {
+var config = {
 	entry: './src/app.ts',
-	resolve: {
+	resolve:  {
 		extensions: ['.ts', '.tsx', '.js', '.json']
 	},
 	module: {
@@ -83,16 +83,40 @@ module.exports = {
 	},
 	externals: {
         "babylonjs": "BABYLON",
-    },
-	plugins: [
-		
-		new HtmlWebPackPlugin({
-			template: './src/index.html',
-			filename: 'index.html'
-		}),
-		new FaviconsWebpackPlugin('./src/logo.png'),
-		//new BundleAnalyzerPlugin(),
-		new MiniCssExtractPlugin({filename: '[name].css',
-    })	
-	]
-}
+	},
+	plugins: []
+	
+}	
+
+module.exports = (env, argv) => {
+	if (argv.mode === 'development') {
+		config.plugins = [
+  
+		  new HtmlWebPackPlugin({
+			  template: './src/index.html',
+			  filename: 'index.html'
+		  }),
+		  //new BundleAnalyzerPlugin(),
+		  new MiniCssExtractPlugin({filename: '[name].css',
+	  })	
+	  ]
+	  }
+	  //...ss
+  
+	if (argv.mode === 'production') {
+		config.plugins = [
+
+			new HtmlWebPackPlugin({
+				template: './src/index.html',
+				filename: 'index.html'
+			}),
+			new FaviconsWebpackPlugin('./src/logo.png'),
+			//new BundleAnalyzerPlugin(),
+			new MiniCssExtractPlugin({filename: '[name].css',
+		})	
+		]
+	}
+  
+	return config;
+  };
+

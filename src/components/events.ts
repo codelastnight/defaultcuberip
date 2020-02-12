@@ -32,13 +32,13 @@ export const Init = function() {
         })
 
         // close on click
-        element.addEventListener("mouseup",function() {
+        element.addEventListener("mousedown",function() {
                 element.classList.add("disable")
         })
     })
     
     //menu on 'object' button
-    getElement('objmenubtn').addEventListener("click",() => openMenu(objmenu))
+    getElement('objmenubtn').addEventListener("mousedown",() => openMenu(objmenu))
     
     //get mouse position
     document.addEventListener("mousemove", (e: MouseEvent) => state.GetSetMousePos({x: e.clientX, y: e.clientY }))

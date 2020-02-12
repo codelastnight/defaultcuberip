@@ -4,8 +4,8 @@
 	"description": "delete the default cube",
 	"main": "index.js",
 	"scripts": {
-		"build": "webpack --mode production --watch",
-		"dev": "webpack --mode development --watch"
+		"build": "webpack --mode=production ",
+		"dev": "webpack --mode=development --watch"
 	},
 	"repository": {
 		"type": "git",

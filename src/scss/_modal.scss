@@ -10,7 +10,7 @@
     @include b.flex;
     justify-content: center;
     pointer-events: auto;
-    &.disabled {
+    &.disable {
         display: none;
         
     }
@@ -64,7 +64,8 @@
          button {
             padding: 2em 1em;
             margin-right: 1rem;
-            background: purple;
+            background: darkseagreen;
+            color: black;
             &:hover, &:active {
                 background: red;
 

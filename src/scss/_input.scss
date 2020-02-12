@@ -4,11 +4,11 @@
 button {
     border: 1px solid v.$grey-outline; 
     border-radius: v.$radius;
-    padding: 2px 4px ;
+    padding: 0px 4px ;
     background: v.$grey-dark;
     color: inherit;
     outline:none;
-    height: 22px;
+    height: v.$itm-height;
     @include b.flex;
     justify-content: center;
     p {
@@ -16,7 +16,6 @@ button {
  
     }
     
-
     &.half {
         background-color: rgba(v.$grey-dark, 0.6);
         border-color: rgba(v.$grey-outline, 0.7);
@@ -65,6 +64,18 @@ button {
      }
 
 }
+
+.button-dropdown {
+    .dropdown {
+        display: none;
+    }
+    &:active, &:hover {
+        .dropdown {
+            display: block;
+        }
+    }
+}
+
 
 .input-group {
     button:not(:last-child) {

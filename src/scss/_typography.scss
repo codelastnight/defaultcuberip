@@ -10,14 +10,25 @@
 
 html {
     font-family: 'bfont', sans-serif;
-    font-size: 12px;
+    font-size: 11px;
     color: v.$white;
 }
 
-a, a:link, *|*:link {
+a,  a:visited, a:link, *|*:link {
     text-decoration: none;
+    color: #8ebf42;
 }
-
-p {
+/* mouse over link */
+a:hover {
+color: #ce0000;
+}
+/* selected link */
+a:active {
+color: #800000;
+}
+h4,p {
     text-shadow: 0px 1px 1px v.$black;
+}
+span {
+    text-decoration: underline;
 }

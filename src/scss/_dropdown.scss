@@ -1,0 +1,64 @@
+@use 'variables' as v;
+@use 'base' as b;
+
+
+.dropdown-wrapper {
+    position: absolute;
+    z-index: 3;
+    padding: 4rem;
+    pointer-events: auto;
+    &.disable {
+        display: none;
+    }
+}
+.dropdown {
+    border-radius: v.$radius;
+    background: rgba(v.$grey-black, 0.95);
+    width: 17rem;
+    
+    box-shadow: 0px 1px 5px 0px v.$grey-black;
+    padding: 3px 2px;
+    
+    
+    hr {
+        margin: 4px 0 ;
+        border-color: v.$grey-neutral;
+        border-width: 0px;
+        border-bottom-width:1px ;
+        border-style: solid;
+        
+    }
+    .title {
+        margin: 5px 8px;
+        color: rgba(v.$white,0.75);
+        @include b.flex;
+        
+    }
+    .dropitem{
+        display: grid;
+        width: 100%;
+        height: v.$itm-height - 3px;
+                                // icon           item name     arrow thing
+        grid-template-columns: [I1] v.$itm-height [c1] auto [c2] 1rem [A2];
+
+        align-items: center;        
+        padding:0  8px ;
+
+        &:hover, &:active {
+            background: v.$blue;
+        }
+        cursor: default;
+        svg {
+            grid-column: I1 / c1;
+            margin: 0 3px;
+        }
+        p {
+            margin: 0;
+            grid-column: c1 / c2;
+        }
+        &:not(last-child) {
+            margin-bottom: 2px;
+        }
+    }
+
+}

@@ -1,6 +1,7 @@
 const HtmlWebPackPlugin = require('html-webpack-plugin')
 const path = require('path')
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin')
 
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 // Extract CSS
@@ -84,10 +85,12 @@ module.exports = {
         "babylonjs": "BABYLON",
     },
 	plugins: [
+		
 		new HtmlWebPackPlugin({
 			template: './src/index.html',
 			filename: 'index.html'
 		}),
+		new FaviconsWebpackPlugin('./src/logo.png'),
 		//new BundleAnalyzerPlugin(),
 		new MiniCssExtractPlugin({filename: '[name].css',
     })	

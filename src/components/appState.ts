@@ -13,7 +13,7 @@ let mousePos: Pos = {
 
 // update the values
 const GetSetCubeActive = (value:boolean | null = null):boolean => value !=null ? cubeActive = value : cubeActive
-
+ 
 const GetSetMousePos = (value: Pos | null = null):Pos =>value !=null ? mousePos = value : mousePos
 
 export {GetSetCubeActive, GetSetMousePos}

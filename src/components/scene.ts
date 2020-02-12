@@ -2,7 +2,8 @@ import * as BABYLON from "babylonjs";
 interface BabylonSceneInit {
 	camera: BABYLON.ArcRotateCamera
 	engine: BABYLON.Engine
-	scene: BABYLON.Scene
+    scene: BABYLON.Scene
+    cube: BABYLON.Mesh
 }
 const amount = 30;
 
@@ -55,7 +56,10 @@ export const initScene = function (): BabylonSceneInit  {
      // da grid thingy
     const createGrid = function(type: string,pointArr: Array<BABYLON.Vector3>, color: BABYLON.Color3) {
         const line = BABYLON.MeshBuilder.CreateLines("line",{points: pointArr},scene)
+        // make it unselectable
         line.isPickable = false;
+        
+        // clone it a bunch
         for(var i = -amount; i<=amount; i +=0.5) {
             const cloneLine = line.clone('line') as BABYLON.LinesMesh 
             type == "x" ? cloneLine.position.z = i : cloneLine.position.x = i
@@ -64,6 +68,8 @@ export const initScene = function (): BabylonSceneInit  {
             if (i == 0) cloneLine.color = color 
             else if (i % 5 == 0 )cloneLine.color = BABYLON.Color3.FromHexString('#505050')
             else cloneLine.color = BABYLON.Color3.FromHexString('#414141')
+
+            // unindex to optimize
             cloneLine.convertToUnIndexedMesh();
         }
         
@@ -71,5 +77,32 @@ export const initScene = function (): BabylonSceneInit  {
     createGrid("x",[ new BABYLON.Vector3(-amount, 0,0),new BABYLON.Vector3(amount, 0,0)],BABYLON.Color3.FromHexString('#A34655'))
     createGrid("z",[ new BABYLON.Vector3(0, 0,-amount),new BABYLON.Vector3(0, 0,amount)],BABYLON.Color3.FromHexString('#678B2B'))
 
-    return {camera, engine, scene}
+    const cube = createCube(scene,camera)
+        
+    /**
+     * Watch for browser/canvas resize events
+     */
+    window.addEventListener("resize", function () { 
+         engine.resize();
+    });
+
+    return {camera, engine, scene,cube}
+}
+
+
+/**
+ * creates da cube
+ * @param scene the scene 
+ * @param camera the camera ( for calculating outline width)
+ */
+const createCube = function(scene:BABYLON.Scene, camera: BABYLON.ArcRotateCamera) {
+    const mesh = BABYLON.MeshBuilder.CreateBox("defaultCube", {width: 1, height: 1, depth: 1, }, scene);
+    mesh.position = BABYLON.Vector3.Zero();
+    
+    mesh.outlineColor = BABYLON.Color3.FromHexString("#F19929");
+    mesh.outlineWidth = camera.radius *0.0015;
+    mesh.renderOutline = false;
+    mesh.isPickable = true;
+    
+    return mesh
 }

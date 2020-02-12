@@ -2,6 +2,8 @@
 @use 'base' as b;
 
 button {
+    position: relative;
+    white-space: nowrap;
     border: 1px solid v.$grey-outline; 
     border-radius: v.$radius;
     padding: 0px 4px ;

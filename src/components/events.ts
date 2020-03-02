@@ -27,18 +27,27 @@ export const Init = function() {
     ]
     menus.forEach((element) => {
         // when mouse leaves vicinity of a dropdown menu, close it. this is to mimic blender
-        element.addEventListener("mouseleave", function() {
+        element.addEventListener("mouseleave",() => {
             element.classList.add("disable")
         })
 
         // close on click
-        element.addEventListener("mousedown",function() {
+        element.addEventListener("mousedown", () => {
                 element.classList.add("disable")
         })
+        element.addEventListener("", () => {
+            element.classList.add("disable")
     })
+    })
+
+    // mobile button
+
+    //getElement('objmenubtn').addEventListener("touchstart", ()=> dropdown.classList.add("disable"))
     
     //menu on 'object' button
-    getElement('objmenubtn').addEventListener("mousedown",() => openMenu(objmenu))
+    getElement('objmenubtn').addEventListener("click",(evt) => handleEvt(evt,()=>openMenu(objmenu,null)))
+    getElement('objmenubtn').addEventListener("touchstart",(evt) => handleEvt(evt,()=>openMenu(objmenu,null)))
+
     
     //get mouse position
     document.addEventListener("mousemove", (e: MouseEvent) => state.GetSetMousePos({x: e.clientX, y: e.clientY }))
@@ -51,23 +60,31 @@ export const Init = function() {
 }
 
 /**
+ * touch support
+ * @param evt mouse / touch event
+ * @param fn  function to fire
+ */
+export const handleEvt = function(evt: Event, fn: Function) {
+    evt.preventDefault(); 
+    evt.cancelBubble = false;
+    return fn() 
+}
+
+/**
  * opens the menu in the UI
  * 
  * @param element the menu element
  * @param pos  mouse position
  */
-export const openMenu = function(element: HTMLElement, pos: Pos|null= null,) {
+export const openMenu = function(element: HTMLElement, pos: Pos|null= null) {
+    element.classList.remove("disable")
     if (pos != null ) {
-        element.classList.remove("disable")
 
         // sets the context menus at cusor position. the -48 value is an offset for the invisible padding
         element.style.setProperty("left", (pos.x - 48).toString() + "px")
         element.style.setProperty("top",  (pos.y - 48).toString() + "px")
     }
-    else {
-        element.classList.toggle("disable")
- 
-    }
+  return element
 }
 
 

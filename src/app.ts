@@ -69,7 +69,9 @@ start(cube);
 
 
 // restart game
-getElement('restart').addEventListener("mousedown",() => start(cube))
+getElement('restart').addEventListener("mousedown",(evt) => Event.handleEvt(evt,()=>start(cube)))
+getElement('restart').addEventListener("touchstart",(evt) => Event.handleEvt(evt,()=>start(cube)))
+
 
 /**
  * add listener for keypress
@@ -83,7 +85,18 @@ scene.onPointerObservable.add ((evt) => { cube.renderOutline = Event.onClickChec
 // render that shit
 engine.runRenderLoop(() => onRender(cube,camera,scene))
 
-// add event handlers to all delete buttons
-document.querySelectorAll("[delete]").forEach((value) => {
-    value.addEventListener("mousedown", () => deleteHandler(cube))
+document.querySelectorAll(".dropdown").forEach((value) => {
+    // add event handlers to all delete buttons
+    if (value.hasAttribute("delete")) {
+        value.addEventListener("mousedown", (evt) => Event.handleEvt(evt, ()=>deleteHandler(cube)))
+        value.addEventListener("touchstart", (evt) => Event.handleEvt(evt, ()=>deleteHandler(cube)))
+    } else {
+    // add event handlers to non-delete dropdown buttons
+
+        // value.addEventListener("mousedown", (evt) => Event.handleEvt(evt, ()=>deleteHandler(cube)))
+        // value.addEventListener("touchstart", (evt) => Event.handleEvt(evt, ()=>deleteHandler(cube)))
+    
+    }
+  
+
 })

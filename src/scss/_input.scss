@@ -67,16 +67,6 @@ button {
 
 }
 
-.button-dropdown {
-    .dropdown {
-        display: none;
-    }
-    &:active, &:hover {
-        .dropdown {
-            display: block;
-        }
-    }
-}
 
 
 .input-group {

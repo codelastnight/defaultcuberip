@@ -1,12 +1,18 @@
 import * as BABYLON from 'babylonjs';
 export declare const Init: () => HTMLElement;
 /**
+ * touch support
+ * @param evt mouse / touch event
+ * @param fn  function to fire
+ */
+export declare const handleEvt: (evt: Event, fn: Function) => any;
+/**
  * opens the menu in the UI
  *
  * @param element the menu element
  * @param pos  mouse position
  */
-export declare const openMenu: (element: HTMLElement, pos?: Pos | null) => void;
+export declare const openMenu: (element: HTMLElement, pos?: Pos | null) => HTMLElement;
 /**
  *
  * @param evt pointer event

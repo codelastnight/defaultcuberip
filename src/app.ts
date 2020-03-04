@@ -4,6 +4,7 @@ import {sleep, getElement} from './components/helper'
 import * as Event from './components/events';
 import 'normalize.css'; 
 import './style.scss';
+import "./components/notifcation";
 
 // this is the data state
 import * as state from './components/appState'
@@ -41,7 +42,7 @@ const start = function(cube: BABYLON.Mesh) {
  * 
  * @param cube the mesh to delete
  */
-const deleteHandler = async function(cube: BABYLON.Mesh) {
+const deleteHandler = async (cube: BABYLON.Mesh) => {
     if (state.GetSetCubeActive()) {
 
         //delete da cube. this is my final message. goodbye
@@ -55,13 +56,17 @@ const deleteHandler = async function(cube: BABYLON.Mesh) {
     }
 }
 
+const addNotif = () => {
+    var newnotif = document.createElement('notif-box')
+    getElement("notif-wrapper").appendChild(newnotif)
+}
+
 
 /**
  * init the scene
  */
 
 const winModal = Event.Init();
-
 // get babylon data from initilization
 const {scene, camera, engine, cube} = initScene();
 
@@ -85,18 +90,23 @@ scene.onPointerObservable.add ((evt) => { cube.renderOutline = Event.onClickChec
 // render that shit
 engine.runRenderLoop(() => onRender(cube,camera,scene))
 
-document.querySelectorAll(".dropdown").forEach((value) => {
+document.querySelectorAll(".dropitem").forEach((value) => {
     // add event handlers to all delete buttons
-    if (value.hasAttribute("delete")) {
-        value.addEventListener("mousedown", (evt) => Event.handleEvt(evt, ()=>deleteHandler(cube)))
-        value.addEventListener("touchstart", (evt) => Event.handleEvt(evt, ()=>deleteHandler(cube)))
+    if (!value.hasAttribute("delete")) {
+        value.addEventListener("mousedown", (evt) => Event.handleEvt(evt, ()=> addNotif()))
+         value.addEventListener("touchstart", (evt) => Event.handleEvt(evt, ()=> addNotif()))
     } else {
     // add event handlers to non-delete dropdown buttons
-
-        // value.addEventListener("mousedown", (evt) => Event.handleEvt(evt, ()=>deleteHandler(cube)))
-        // value.addEventListener("touchstart", (evt) => Event.handleEvt(evt, ()=>deleteHandler(cube)))
+        value.addEventListener("mousedown", (evt) => Event.handleEvt(evt, ()=>deleteHandler(cube)))
+        value.addEventListener("touchstart", (evt) => Event.handleEvt(evt, ()=>deleteHandler(cube)))
+        
     
     }
-  
+});
 
-})
+[...document.getElementsByTagName('button')] .forEach(value => {
+    if (!value.hasAttribute('id')) {
+        value.addEventListener("mousedown", (evt) => Event.handleEvt(evt, ()=> addNotif()))
+        value.addEventListener("touchstart", (evt) => Event.handleEvt(evt, ()=> addNotif()))
+    }
+});

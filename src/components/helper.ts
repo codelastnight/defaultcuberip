@@ -17,3 +17,9 @@ export const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, 
  * @param id element id
  */
 export const getElement = (id: string): HTMLElement => document.getElementById(id) as HTMLElement
+
+/**
+ * select random child from array
+ * @param localarray input array
+ */
+export const randArray = (localarray: any[]): any => localarray[Math.floor(Math.random()*localarray.length)]

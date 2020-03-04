@@ -12,3 +12,8 @@ export declare const sleep: (ms: number) => Promise<unknown>;
  * @param id element id
  */
 export declare const getElement: (id: string) => HTMLElement;
+/**
+ * select random child from array
+ * @param localarray input array
+ */
+export declare const randArray: (localarray: any[]) => any;

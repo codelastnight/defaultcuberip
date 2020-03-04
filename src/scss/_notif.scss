@@ -1,0 +1,34 @@
+@use 'variables' as v;
+
+.notif-wrapper {
+    right: 30px;
+    position: fixed;
+    pointer-events: none;
+    bottom: 60px;
+    width: 30rem;
+    
+}
+.notif {
+    background: rgba(v.$grey-black, 0.8);
+    color: v.$white;
+    width: 100%;
+    border-radius: v.$radius;
+    opacity: 0;
+    transition: all 0.25s ease-out;
+    //font-size: 1.5rem;
+    max-height: 0;
+    margin: 0px 0;
+    padding: 0px 20px;
+    overflow: hidden;
+    border: 1px solid #a3200b;
+
+}
+.active {
+    .notif {
+        padding: 20px 20px;
+        opacity: 1;
+        max-height: 5rem;
+        margin: 3px 0;
+        pointer-events: auto;
+    } 
+}

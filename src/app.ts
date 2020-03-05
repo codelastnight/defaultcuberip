@@ -87,6 +87,7 @@ document.addEventListener('keydown', event => Event.KeyCheck(event, () => delete
  */
 scene.onPointerObservable.add ((evt) => { cube.renderOutline = Event.onClickCheck(evt,cube.renderOutline)},BABYLON.PointerEventTypes.POINTERDOWN)
 
+
 // render that shit
 engine.runRenderLoop(() => onRender(cube,camera,scene))
 

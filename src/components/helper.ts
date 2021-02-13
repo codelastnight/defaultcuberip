@@ -5,7 +5,7 @@
 
 
 /**
- *  I am hip and cool so i use promise and async 
+ *  I am hip and cool so i use promise and async to sleep 
  * @param ms how much to sleep
  */
 

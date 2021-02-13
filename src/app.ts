@@ -37,7 +37,7 @@ const start = function(cube: BABYLON.Mesh) {
 
 
 /**
- * run when user SUCCsessfully deletes  cube
+ * run when user SUcsessfully deletes  cube
  * and den dispose n garbage colle
  * 
  * @param cube the mesh to delete
@@ -88,7 +88,7 @@ document.addEventListener('keydown', event => Event.KeyCheck(event, () => delete
 scene.onPointerObservable.add ((evt) => { cube.renderOutline = Event.onClickCheck(evt,cube.renderOutline)},BABYLON.PointerEventTypes.POINTERDOWN)
 
 
-// render that shit
+// render it
 engine.runRenderLoop(() => onRender(cube,camera,scene))
 
 document.querySelectorAll(".dropitem").forEach((value) => {

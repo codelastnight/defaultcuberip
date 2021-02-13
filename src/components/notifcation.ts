@@ -1,6 +1,9 @@
 import * as errorData from '../errorlist.json';
 import {randArray, sleep} from './helper';
 
+/**
+ * notification webcomponent
+ */
 class Notif extends HTMLElement {
      async connectedCallback() {
         
